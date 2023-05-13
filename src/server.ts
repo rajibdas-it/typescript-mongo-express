@@ -1,11 +1,19 @@
-const express = require("express");
-const app = express();
-const port = 5000;
+import mongoose from "mongoose";
+import app from "./app";
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+const port: number = 5000;
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+// database connection
+async function main() {
+  try {
+    await mongoose.connect("mongodb://127.0.0.1:27017/test");
+    console.log("database connected");
+    app.listen(port, () => {
+      console.log(`server is running on port ${port}`);
+    });
+  } catch (error) {
+    console.log("Failed to connect database", error);
+  }
+}
+
+main();
