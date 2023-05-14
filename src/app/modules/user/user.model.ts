@@ -14,9 +14,8 @@ const userSchema = new Schema<IUser>({
   gender: {
     type: String,
     enum: ["male", "female"],
-    required: true,
   },
-  email: { type: String, required: true },
+  email: { type: String },
   contactNo: { type: String, required: true },
   emergencyContactNo: { type: String, required: true },
   presentAdd: { type: String, required: true },
