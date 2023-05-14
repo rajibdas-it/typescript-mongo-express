@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import { Schema, model } from "mongoose";
+import { IUser } from "./app/modules/user/user.interface";
 
 const app: Application = express();
 app.use(cors());
@@ -18,48 +19,10 @@ app.get("/", (req: Request, res: Response) => {
    step4: Database Query
    */
   //    creating an interface
-  interface IUser {
-    id: string;
-    role: "student";
-    password: string;
-    name: {
-      firstName: string;
-      middleName?: string;
-      lastName: string;
-    };
-    dob?: string;
-    gender: "male" | "female";
-    email?: string;
-    contactNo: string;
-    emergencyContactNo: string;
-    presentAdd: string;
-    parmanentAdd: string;
-  }
 
-  const userSchema = new Schema<IUser>({
-    id: { type: String, required: true, unique: true },
-    role: { type: String, required: true },
-    password: { type: String, required: true },
-    name: {
-      firstName: { type: String, required: true },
-      middleName: { type: String },
-      lastName: { type: String, required: true },
-    },
-    dob: { type: String },
-    gender: {
-      type: String,
-      enum: ["male", "female"],
-      required: true,
-    },
-    email: { type: String, required: true },
-    contactNo: { type: String, required: true },
-    emergencyContactNo: { type: String, required: true },
-    presentAdd: { type: String, required: true },
-    parmanentAdd: { type: String, required: true },
-  });
   //model declarations process
   // const modelName = modelBuiltInFunction<Interface Name>("modelName", SchemaName)
-  const User = model<IUser>("User", userSchema); //create usermodel from userschema
+  //create usermodel from userschema
   const createUserToDB = async () => {
     const user = new User({
       id: "555",
